@@ -1,5 +1,6 @@
-(ns async-tut1.core)
+(ns async-tut1.core
+  (:require [goog.dom :as dom]))
 
 (enable-console-print!)
 
-(println "Hello world!")
+(.log js/console (dom/getElement "query"))
