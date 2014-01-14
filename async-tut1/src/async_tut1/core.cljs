@@ -31,4 +31,13 @@
   (go (while true
           (.log js/console (<! clicks)))))
 
-(go (.log js/console (<! (jsonp (query-url "cats")))))
+(defn user-query []
+  (.-value (dom/getElement "query")))
+
+(defn init []
+  (let [clicks (listen (dom/getElement "search") "click")]
+    (go (while true
+      (<! clicks)
+        (.log js/console (<! (jsonp (query-url (user-query)))))))))
+
+(init)
