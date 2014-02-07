@@ -10,6 +10,9 @@ Required reading/watching:
  <a href="http://letoverlambda.com/index.cl/guest/chap2.html">Let Over Lambda: Closure-Oriented Programming</a>
 </li>
 <li>
+ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">A re-introduction to JavaScript (JS Tutorial)</a>
+</li>
+<li>
  <a href="http://yuiblog.com/blog/2007/06/12/module-pattern/">A JavaScript Module Pattern</a>
 </li>
 <li>
