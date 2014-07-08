@@ -22,6 +22,12 @@ Required reading/watching:
  <a href="http://javascriptissexy.com/16-javascript-concepts-you-must-know-well/">16 Javascript Concepts</a>
 </li>
 <li>
+ <a href="http://www.youtube.com/watch?v=DwYPG6vreJg">Douglas Crockford: Advanced Javascript (video)</a>
+</li>
+<li>
+ <a href="http://stackoverflow.com/questions/111102/how-do-javascript-closures-work">How do Javascript closures work? (stackoverflow)</a>
+</li>
+<li>
  <a href="http://swannodette.github.io/2013/11/07/clojurescript-101/">ClojureScript 101</a>
 </li>
 </ol>
