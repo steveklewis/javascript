@@ -431,6 +431,35 @@ JSString: {"": "String/Interceptor;",
   substring$1: function($receiver, startIndex) {
     return this.substring$2($receiver, startIndex, null);
   },
+  trim$0: function(receiver) {
+    var endIndex, startIndex, codeUnit, endIndex0, endIndex1;
+    for (endIndex = receiver.length, startIndex = 0; startIndex < endIndex;) {
+      if (startIndex >= endIndex)
+        H.throwExpression(P.RangeError$value(startIndex));
+      codeUnit = receiver.charCodeAt(startIndex);
+      if (codeUnit === 32 || codeUnit === 13 || J.JSString__isWhitespace(codeUnit))
+        ++startIndex;
+      else
+        break;
+    }
+    if (startIndex === endIndex)
+      return "";
+    for (endIndex0 = endIndex; true; endIndex0 = endIndex1) {
+      endIndex1 = endIndex0 - 1;
+      if (endIndex1 < 0)
+        H.throwExpression(P.RangeError$value(endIndex1));
+      if (endIndex1 >= endIndex)
+        H.throwExpression(P.RangeError$value(endIndex1));
+      codeUnit = receiver.charCodeAt(endIndex1);
+      if (codeUnit === 32 || codeUnit === 13 || J.JSString__isWhitespace(codeUnit))
+        ;
+      else
+        break;
+    }
+    if (startIndex === 0 && endIndex0 === endIndex)
+      return receiver;
+    return receiver.substring(startIndex, endIndex0);
+  },
   get$isEmpty: function(receiver) {
     return receiver.length === 0;
   },
@@ -458,7 +487,49 @@ JSString: {"": "String/Interceptor;",
       throw H.wrapException(P.RangeError$value(index));
     return receiver[index];
   },
-  $isString: true
+  $isString: true,
+  static: {
+JSString__isWhitespace: function(codeUnit) {
+  if (codeUnit < 256)
+    switch (codeUnit) {
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+      case 13:
+      case 32:
+      case 133:
+      case 160:
+        return true;
+      default:
+        return false;
+    }
+  switch (codeUnit) {
+    case 5760:
+    case 6158:
+    case 8192:
+    case 8193:
+    case 8194:
+    case 8195:
+    case 8196:
+    case 8197:
+    case 8198:
+    case 8199:
+    case 8200:
+    case 8201:
+    case 8202:
+    case 8232:
+    case 8233:
+    case 8239:
+    case 8287:
+    case 12288:
+    case 65279:
+      return true;
+    default:
+      return false;
+  }
+}}
+
 }}],
 ["_isolate_helper", "dart:_isolate_helper", , H, {
 _callInIsolate: function(isolate, $function) {
@@ -5117,7 +5188,7 @@ _wrapZone: function(callback) {
   return t1.bindUnaryCallback$2$runGuarded(callback, true);
 },
 
-HtmlElement: {"": "Element;", "%": "HTMLAppletElement|HTMLBRElement|HTMLBaseFontElement|HTMLBodyElement|HTMLButtonElement|HTMLCanvasElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLEmbedElement|HTMLFieldSetElement|HTMLFontElement|HTMLFrameElement|HTMLFrameSetElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLIFrameElement|HTMLImageElement|HTMLKeygenElement|HTMLLIElement|HTMLLabelElement|HTMLLegendElement|HTMLLinkElement|HTMLMapElement|HTMLMarqueeElement|HTMLMenuElement|HTMLMetaElement|HTMLMeterElement|HTMLModElement|HTMLOListElement|HTMLObjectElement|HTMLOptGroupElement|HTMLOptionElement|HTMLOutputElement|HTMLParagraphElement|HTMLParamElement|HTMLPreElement|HTMLProgressElement|HTMLQuoteElement|HTMLScriptElement|HTMLShadowElement|HTMLSourceElement|HTMLSpanElement|HTMLStyleElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTextAreaElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement;HTMLElement"},
+HtmlElement: {"": "Element;", "%": "HTMLAppletElement|HTMLBRElement|HTMLBaseFontElement|HTMLBodyElement|HTMLCanvasElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLEmbedElement|HTMLFontElement|HTMLFrameElement|HTMLFrameSetElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLIFrameElement|HTMLImageElement|HTMLLIElement|HTMLLabelElement|HTMLLegendElement|HTMLMapElement|HTMLMarqueeElement|HTMLMenuElement|HTMLMetaElement|HTMLMeterElement|HTMLModElement|HTMLOListElement|HTMLObjectElement|HTMLOutputElement|HTMLParagraphElement|HTMLParamElement|HTMLPreElement|HTMLProgressElement|HTMLQuoteElement|HTMLScriptElement|HTMLShadowElement|HTMLSourceElement|HTMLSpanElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement;HTMLElement"},
 
 AnchorElement: {"": "HtmlElement;target=",
   toString$0: function(receiver) {
@@ -5129,6 +5200,8 @@ AnchorElement: {"": "HtmlElement;target=",
 AreaElement: {"": "HtmlElement;target=", "%": "HTMLAreaElement"},
 
 BaseElement: {"": "HtmlElement;target=", "%": "HTMLBaseElement"},
+
+ButtonElement: {"": "HtmlElement;disabled}", "%": "HTMLButtonElement"},
 
 CharacterData: {"": "Node;length=", "%": "CDATASection|Comment|Text;CharacterData"},
 
@@ -5152,7 +5225,7 @@ Event: {"": "Interceptor;",
   get$target: function(receiver) {
     return W._convertNativeToDart_EventTarget(receiver.target);
   },
-  "%": "AudioProcessingEvent|AutocompleteErrorEvent|BeforeLoadEvent|BeforeUnloadEvent|CSSFontFaceLoadEvent|CloseEvent|CompositionEvent|CustomEvent|DeviceMotionEvent|DeviceOrientationEvent|DragEvent|FocusEvent|HashChangeEvent|IDBVersionChangeEvent|KeyboardEvent|MIDIConnectionEvent|MIDIMessageEvent|MSPointerEvent|MediaKeyEvent|MediaKeyMessageEvent|MediaKeyNeededEvent|MediaStreamEvent|MediaStreamTrackEvent|MessageEvent|MouseEvent|MouseScrollEvent|MouseWheelEvent|MutationEvent|OfflineAudioCompletionEvent|OverflowEvent|PageTransitionEvent|PointerEvent|PopStateEvent|ProgressEvent|RTCDTMFToneChangeEvent|RTCDataChannelEvent|RTCIceCandidateEvent|ResourceProgressEvent|SVGZoomEvent|SecurityPolicyViolationEvent|SpeechInputEvent|SpeechRecognitionEvent|SpeechSynthesisEvent|StorageEvent|TextEvent|TouchEvent|TrackEvent|TransitionEvent|UIEvent|WebGLContextEvent|WebKitAnimationEvent|WebKitTransitionEvent|WheelEvent|XMLHttpRequestProgressEvent;Event"
+  "%": "AudioProcessingEvent|AutocompleteErrorEvent|BeforeLoadEvent|BeforeUnloadEvent|CSSFontFaceLoadEvent|CloseEvent|CustomEvent|DeviceMotionEvent|DeviceOrientationEvent|HashChangeEvent|IDBVersionChangeEvent|MIDIConnectionEvent|MIDIMessageEvent|MediaKeyEvent|MediaKeyMessageEvent|MediaKeyNeededEvent|MediaStreamEvent|MediaStreamTrackEvent|MessageEvent|MutationEvent|OfflineAudioCompletionEvent|OverflowEvent|PageTransitionEvent|PopStateEvent|ProgressEvent|RTCDTMFToneChangeEvent|RTCDataChannelEvent|RTCIceCandidateEvent|ResourceProgressEvent|SecurityPolicyViolationEvent|SpeechInputEvent|SpeechRecognitionEvent|SpeechSynthesisEvent|StorageEvent|TrackEvent|TransitionEvent|WebGLContextEvent|WebKitAnimationEvent|WebKitTransitionEvent|XMLHttpRequestProgressEvent;Event"
 },
 
 EventTarget: {"": "Interceptor;",
@@ -5166,11 +5239,19 @@ EventTarget: {"": "Interceptor;",
   "%": "MediaStream;EventTarget"
 },
 
+FieldSetElement: {"": "HtmlElement;disabled}", "%": "HTMLFieldSetElement"},
+
 FormElement: {"": "HtmlElement;length=,target=", "%": "HTMLFormElement"},
 
-InputElement: {"": "HtmlElement;", $isInputElement: true, $isEventTarget: true, "%": "HTMLInputElement"},
+InputElement: {"": "HtmlElement;disabled}", $isInputElement: true, $isEventTarget: true, "%": "HTMLInputElement"},
+
+KeygenElement: {"": "HtmlElement;disabled}", "%": "HTMLKeygenElement"},
+
+LinkElement: {"": "HtmlElement;disabled}", "%": "HTMLLinkElement"},
 
 MediaElement: {"": "HtmlElement;error=", "%": "HTMLAudioElement|HTMLMediaElement|HTMLVideoElement"},
+
+MouseEvent: {"": "UIEvent;", "%": "DragEvent|MSPointerEvent|MouseEvent|MouseScrollEvent|MouseWheelEvent|PointerEvent|WheelEvent"},
 
 Node: {"": "EventTarget;",
   toString$0: function(receiver) {
@@ -5180,11 +5261,21 @@ Node: {"": "EventTarget;",
   "%": "Attr|Document|DocumentFragment|DocumentType|Entity|HTMLDocument|Notation|SVGDocument|ShadowRoot;Node"
 },
 
+OptGroupElement: {"": "HtmlElement;disabled}", "%": "HTMLOptGroupElement"},
+
+OptionElement: {"": "HtmlElement;disabled}", "%": "HTMLOptionElement"},
+
 ProcessingInstruction: {"": "CharacterData;target=", "%": "ProcessingInstruction"},
 
-SelectElement: {"": "HtmlElement;length=", "%": "HTMLSelectElement"},
+SelectElement: {"": "HtmlElement;disabled},length=", "%": "HTMLSelectElement"},
 
 SpeechRecognitionError: {"": "Event;error=", "%": "SpeechRecognitionError"},
+
+StyleElement: {"": "HtmlElement;disabled}", "%": "HTMLStyleElement"},
+
+TextAreaElement: {"": "HtmlElement;disabled}", "%": "HTMLTextAreaElement"},
+
+UIEvent: {"": "Event;", "%": "CompositionEvent|FocusEvent|KeyboardEvent|SVGZoomEvent|TextEvent|TouchEvent;UIEvent"},
 
 Window: {"": "EventTarget;",
   toString$0: function(receiver) {
@@ -5242,7 +5333,9 @@ AElement: {"": "GraphicsElement;target=", "%": "SVGAElement"},
 
 GraphicsElement: {"": "SvgElement;", "%": "SVGAltGlyphElement|SVGCircleElement|SVGClipPathElement|SVGDefsElement|SVGEllipseElement|SVGForeignObjectElement|SVGGElement|SVGImageElement|SVGLineElement|SVGPathElement|SVGPolygonElement|SVGPolylineElement|SVGRectElement|SVGSVGElement|SVGSwitchElement|SVGTSpanElement|SVGTextContentElement|SVGTextElement|SVGTextPathElement|SVGTextPositioningElement|SVGUseElement;SVGGraphicsElement"},
 
-SvgElement: {"": "Element;", "%": "SVGAltGlyphDefElement|SVGAltGlyphItemElement|SVGAnimateColorElement|SVGAnimateElement|SVGAnimateMotionElement|SVGAnimateTransformElement|SVGAnimationElement|SVGComponentTransferFunctionElement|SVGCursorElement|SVGDescElement|SVGFEBlendElement|SVGFEColorMatrixElement|SVGFEComponentTransferElement|SVGFECompositeElement|SVGFEConvolveMatrixElement|SVGFEDiffuseLightingElement|SVGFEDisplacementMapElement|SVGFEDistantLightElement|SVGFEDropShadowElement|SVGFEFloodElement|SVGFEFuncAElement|SVGFEFuncBElement|SVGFEFuncGElement|SVGFEFuncRElement|SVGFEGaussianBlurElement|SVGFEImageElement|SVGFEMergeElement|SVGFEMergeNodeElement|SVGFEMorphologyElement|SVGFEOffsetElement|SVGFEPointLightElement|SVGFESpecularLightingElement|SVGFESpotLightElement|SVGFETileElement|SVGFETurbulenceElement|SVGFilterElement|SVGFontElement|SVGFontFaceElement|SVGFontFaceFormatElement|SVGFontFaceNameElement|SVGFontFaceSrcElement|SVGFontFaceUriElement|SVGGlyphElement|SVGGlyphRefElement|SVGGradientElement|SVGHKernElement|SVGLinearGradientElement|SVGMPathElement|SVGMarkerElement|SVGMaskElement|SVGMetadataElement|SVGMissingGlyphElement|SVGPatternElement|SVGRadialGradientElement|SVGScriptElement|SVGSetElement|SVGStopElement|SVGStyleElement|SVGSymbolElement|SVGTitleElement|SVGVKernElement|SVGViewElement;SVGElement"}}],
+StyleElement0: {"": "SvgElement;disabled}", "%": "SVGStyleElement"},
+
+SvgElement: {"": "Element;", "%": "SVGAltGlyphDefElement|SVGAltGlyphItemElement|SVGAnimateColorElement|SVGAnimateElement|SVGAnimateMotionElement|SVGAnimateTransformElement|SVGAnimationElement|SVGComponentTransferFunctionElement|SVGCursorElement|SVGDescElement|SVGFEBlendElement|SVGFEColorMatrixElement|SVGFEComponentTransferElement|SVGFECompositeElement|SVGFEConvolveMatrixElement|SVGFEDiffuseLightingElement|SVGFEDisplacementMapElement|SVGFEDistantLightElement|SVGFEDropShadowElement|SVGFEFloodElement|SVGFEFuncAElement|SVGFEFuncBElement|SVGFEFuncGElement|SVGFEFuncRElement|SVGFEGaussianBlurElement|SVGFEImageElement|SVGFEMergeElement|SVGFEMergeNodeElement|SVGFEMorphologyElement|SVGFEOffsetElement|SVGFEPointLightElement|SVGFESpecularLightingElement|SVGFESpotLightElement|SVGFETileElement|SVGFETurbulenceElement|SVGFilterElement|SVGFontElement|SVGFontFaceElement|SVGFontFaceFormatElement|SVGFontFaceNameElement|SVGFontFaceSrcElement|SVGFontFaceUriElement|SVGGlyphElement|SVGGlyphRefElement|SVGGradientElement|SVGHKernElement|SVGLinearGradientElement|SVGMPathElement|SVGMarkerElement|SVGMaskElement|SVGMetadataElement|SVGMissingGlyphElement|SVGPatternElement|SVGRadialGradientElement|SVGScriptElement|SVGSetElement|SVGStopElement|SVGSymbolElement|SVGTitleElement|SVGVKernElement|SVGViewElement;SVGElement"}}],
 ["dart.isolate", "dart:isolate", , P, {
 ReceivePort: {"": "Object;"}}],
 ["dart.typed_data", "dart:typed_data", , P, {
@@ -5302,10 +5395,33 @@ main: function() {
   t2 = new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(A.updateBadge$closure), t1._useCapture);
   H.setRuntimeTypeInfo(t2, [H.getRuntimeTypeArgument(t1, "_EventStream", 0)]);
   t2._tryResume$0();
+  $.genButton = document.querySelector("#generateButton");
+  t2 = $.genButton;
+  t2.toString;
+  t2 = new W._ElementEventStreamImpl(t2, C.EventStreamProvider_click._eventType, false);
+  H.setRuntimeTypeInfo(t2, [null]);
+  t1 = new W._EventStreamSubscription(0, t2._target, t2._eventType, W._wrapZone(A.generateBadge$closure), t2._useCapture);
+  H.setRuntimeTypeInfo(t1, [H.getRuntimeTypeArgument(t2, "_EventStream", 0)]);
+  t1._tryResume$0();
 },
 
 updateBadge: function(e) {
-  document.querySelector("#badgeName").textContent = H.interceptedTypeCast(J.get$target$x(e), "$isInputElement").value;
+  var inputName, t1, t2;
+  inputName = H.interceptedTypeCast(J.get$target$x(e), "$isInputElement").value;
+  document.querySelector("#badgeName").textContent = inputName;
+  t1 = J.trim$0$s(inputName);
+  t2 = $.genButton;
+  if (t1.length === 0) {
+    J.set$disabled$x(t2, false);
+    t2.textContent = "Aye! Gimme a name!";
+  } else {
+    J.set$disabled$x(t2, true);
+    t2.textContent = "Arrr! Write yer name!";
+  }
+},
+
+generateBadge: function(e) {
+  document.querySelector("#badgeName").textContent = "Anne Bonney";
 }},
 1],
 ]);
@@ -5326,6 +5442,7 @@ init.globalFunctions.identical$closure = P.identical$closure = new H.Closure$2(P
 init.globalFunctions.identityHashCode$closure = P.identityHashCode$closure = new P.Closure$1(P.identityHashCode, "identityHashCode$closure");
 init.globalFunctions.main$closure = A.main$closure = new H.Closure$0(A.main, "main$closure");
 init.globalFunctions.updateBadge$closure = A.updateBadge$closure = new P.Closure$1(A.updateBadge, "updateBadge$closure");
+init.globalFunctions.generateBadge$closure = A.generateBadge$closure = new P.Closure$1(A.generateBadge, "generateBadge$closure");
 // Runtime type support
 J.JSInt.$isint = true;
 J.JSInt.$isObject = true;
@@ -5335,6 +5452,8 @@ J.JSNumber.$isObject = true;
 P.Duration.$isObject = true;
 W.Event.$isEvent = true;
 W.Event.$isObject = true;
+W.MouseEvent.$isEvent = true;
+W.MouseEvent.$isObject = true;
 P.ReceivePort.$isObject = true;
 H._IsolateEvent.$isObject = true;
 H._IsolateContext.$isObject = true;
@@ -5429,6 +5548,7 @@ J.getInterceptor$x = function(receiver) {
 C.C__DelayedDone = new P._DelayedDone();
 C.C__RootZone = new P._RootZone();
 C.Duration_0 = new P.Duration(0);
+C.EventStreamProvider_click = new W.EventStreamProvider("click");
 C.EventStreamProvider_input = new W.EventStreamProvider("input");
 C.JSArray_methods = J.JSArray.prototype;
 C.JSInt_methods = J.JSInt.prototype;
@@ -5575,6 +5695,7 @@ $.Zone__current = C.C__RootZone;
 $.Expando__keyCount = 0;
 $.Device__isOpera = null;
 $.Device__isWebKit = null;
+$.genButton = null;
 J.$eq = function(receiver, a0) {
   if (receiver == null)
     return a0 == null;
@@ -5622,8 +5743,14 @@ J.get$target$x = function(receiver) {
 J.removeEventListener$3$x = function(receiver, a0, a1, a2) {
   return J.getInterceptor$x(receiver).removeEventListener$3(receiver, a0, a1, a2);
 };
+J.set$disabled$x = function(receiver, value) {
+  return J.getInterceptor$x(receiver).set$disabled(receiver, value);
+};
 J.toString$0 = function(receiver) {
   return J.getInterceptor(receiver).toString$0(receiver);
+};
+J.trim$0$s = function(receiver) {
+  return J.getInterceptor$s(receiver).trim$0(receiver);
 };
 Isolate.$lazy($, "globalThis", "globalThis", "get$globalThis", function() {
   return function() { return this; }();
