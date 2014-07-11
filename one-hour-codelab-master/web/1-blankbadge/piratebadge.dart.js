@@ -5338,6 +5338,16 @@ StyleElement0: {"": "SvgElement;disabled}", "%": "SVGStyleElement"},
 SvgElement: {"": "Element;", "%": "SVGAltGlyphDefElement|SVGAltGlyphItemElement|SVGAnimateColorElement|SVGAnimateElement|SVGAnimateMotionElement|SVGAnimateTransformElement|SVGAnimationElement|SVGComponentTransferFunctionElement|SVGCursorElement|SVGDescElement|SVGFEBlendElement|SVGFEColorMatrixElement|SVGFEComponentTransferElement|SVGFECompositeElement|SVGFEConvolveMatrixElement|SVGFEDiffuseLightingElement|SVGFEDisplacementMapElement|SVGFEDistantLightElement|SVGFEDropShadowElement|SVGFEFloodElement|SVGFEFuncAElement|SVGFEFuncBElement|SVGFEFuncGElement|SVGFEFuncRElement|SVGFEGaussianBlurElement|SVGFEImageElement|SVGFEMergeElement|SVGFEMergeNodeElement|SVGFEMorphologyElement|SVGFEOffsetElement|SVGFEPointLightElement|SVGFESpecularLightingElement|SVGFESpotLightElement|SVGFETileElement|SVGFETurbulenceElement|SVGFilterElement|SVGFontElement|SVGFontFaceElement|SVGFontFaceFormatElement|SVGFontFaceNameElement|SVGFontFaceSrcElement|SVGFontFaceUriElement|SVGGlyphElement|SVGGlyphRefElement|SVGGradientElement|SVGHKernElement|SVGLinearGradientElement|SVGMPathElement|SVGMarkerElement|SVGMaskElement|SVGMetadataElement|SVGMissingGlyphElement|SVGPatternElement|SVGRadialGradientElement|SVGScriptElement|SVGSetElement|SVGStopElement|SVGSymbolElement|SVGTitleElement|SVGVKernElement|SVGViewElement;SVGElement"}}],
 ["dart.isolate", "dart:isolate", , P, {
 ReceivePort: {"": "Object;"}}],
+["dart.math", "dart:math", , P, {
+_Random: {"": "Object;",
+  nextInt$1: function(max) {
+    if (max < 0)
+      throw H.wrapException(new P.ArgumentError("negative max: " + max));
+    if (max > 4294967295)
+      max = 4294967295;
+    return Math.random() * max >>> 0;
+  }
+}}],
 ["dart.typed_data", "dart:typed_data", , P, {
 TypedData: {"": "Interceptor;",
   _invalidIndex$2: function(receiver, index, $length) {
@@ -5406,9 +5416,12 @@ main: function() {
 },
 
 updateBadge: function(e) {
-  var inputName, t1, t2;
+  var inputName, t1, t2, t3;
   inputName = H.interceptedTypeCast(J.get$target$x(e), "$isInputElement").value;
-  document.querySelector("#badgeName").textContent = inputName;
+  t1 = A.PirateName$(null, inputName);
+  t2 = document.querySelector("#badgeName");
+  t3 = t1._firstName;
+  t2.textContent = t3.length === 0 ? "" : t3 + " the " + t1._appellation;
   t1 = J.trim$0$s(inputName);
   t2 = $.genButton;
   if (t1.length === 0) {
@@ -5421,7 +5434,42 @@ updateBadge: function(e) {
 },
 
 generateBadge: function(e) {
-  document.querySelector("#badgeName").textContent = "Anne Bonney";
+  var t1, t2, t3;
+  t1 = A.PirateName$(null, null);
+  t2 = document.querySelector("#badgeName");
+  t3 = t1._firstName;
+  t2.textContent = t3.length === 0 ? "" : t3 + " the " + t1._appellation;
+},
+
+PirateName: {"": "Object;_firstName,_appellation",
+  PirateName$2$appellation$firstName: function(appellation, firstName) {
+    var t1, t2;
+    if (firstName == null) {
+      t1 = $.get$PirateName_names();
+      t2 = $.get$PirateName_indexGen();
+      $.get$PirateName_names();
+      t2 = t2.nextInt$1(10);
+      if (t2 < 0 || t2 >= 10)
+        throw H.ioore(t1, t2);
+      this._firstName = t1[t2];
+    } else
+      this._firstName = firstName;
+    t1 = $.get$PirateName_appellations();
+    t2 = $.get$PirateName_indexGen();
+    $.get$PirateName_appellations();
+    t2 = t2.nextInt$1(10);
+    if (t2 < 0 || t2 >= 10)
+      throw H.ioore(t1, t2);
+    this._appellation = t1[t2];
+  },
+  static: {
+"": "PirateName_indexGen,PirateName_names,PirateName_appellations",
+PirateName$: function(appellation, firstName) {
+  var t1 = new A.PirateName(null, null);
+  t1.PirateName$2$appellation$firstName(appellation, firstName);
+  return t1;
+}}
+
 }},
 1],
 ]);
@@ -5546,6 +5594,7 @@ J.getInterceptor$x = function(receiver) {
   return J.getNativeInterceptor(receiver);
 };
 C.C__DelayedDone = new P._DelayedDone();
+C.C__Random = new P._Random();
 C.C__RootZone = new P._RootZone();
 C.Duration_0 = new P.Duration(0);
 C.EventStreamProvider_click = new W.EventStreamProvider("click");
@@ -5811,6 +5860,15 @@ Isolate.$lazy($, "_toStringVisiting", "_toStringVisiting", "get$_toStringVisitin
 });
 Isolate.$lazy($, "_toStringList", "Maps__toStringList", "get$Maps__toStringList", function() {
   return P.List_List(null, null);
+});
+Isolate.$lazy($, "indexGen", "PirateName_indexGen", "get$PirateName_indexGen", function() {
+  return C.C__Random;
+});
+Isolate.$lazy($, "names", "PirateName_names", "get$PirateName_names", function() {
+  return ["Anne", "Mary", "Jack", "Morgan", "Roger", "Bill", "Ragnar", "Ed", "John", "Jane"];
+});
+Isolate.$lazy($, "appellations", "PirateName_appellations", "get$PirateName_appellations", function() {
+  return ["Jackal", "King", "Red", "Stalwart", "Axe", "Young", "Brave", "Eager", "Wily", "Zesty"];
 });
 // Native classes
 
