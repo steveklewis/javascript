@@ -32,4 +32,25 @@ Required reading/watching:
 </li>
 </ol>
 
+dartlang:
+
+<ol>
+  <li>
+  <a href="http://teropa.info/blog/2014/02/11/kicking-the-tires-on-angulardart.html">Kicking the Tires on AngularDart</a>
+  </li>
+  <li>
+   <a href="https://www.youtube.com/watch?v=49BH7nxbBmY">Google I/O 2014 - Connecting Cloud and Web: Deploying end-to-end apps with Dart (video)</a>
+  </li>
+
+</ol>
+
+The code for my Dart language experiments, as I go through some tutorials:
+
+<ol>
+  <li>
+    <a href="https://rawgit.com/steveklewis/javascript/master/dart_html/mini/web/mini.html">Intro to dart:html</a>
+  </li>
+</ol>
+
+
 This is my git repo for my experiments with JavaScript and logging what I've learned and proved to myself. I like unit testing, and I'm interested in seeing how I can wire up JavaScript on the client with an event framework and unit test it on the command-line with Nodejs.
