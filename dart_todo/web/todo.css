@@ -25,3 +25,10 @@ body {
   border-bottom: 1px dotted Silver;
 }
 
+
+
+#to-do-list li:hover {
+  color: red;
+  font-size: 18px;
+  cursor:pointer;
+}
