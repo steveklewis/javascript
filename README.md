@@ -49,7 +49,9 @@ The code for my Dart language experiments, as I go through some tutorials:
 <ol>
   <li>
     <a href="https://rawgit.com/steveklewis/javascript/master/dart_html/mini/web/mini.html">Intro to dart:html</a>
-    <a href="https://rawgit.com/steveklewis/javascript/master/dart_todo/todo/web/todo.html">Minor modifications to the todo web app.</a>
+  </li>
+  <li>
+    <a href="https://rawgit.com/steveklewis/javascript/master/dart_todo/web/todo.html">Minor modifications to the todo web app.</a>
   </li>
 </ol>
 
