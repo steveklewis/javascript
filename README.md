@@ -58,5 +58,12 @@ The code for my Dart language experiments, as I go through some tutorials:
   </li>
 </ol>
 
+Learning Ember:
+
+<ol>
+  <li>
+    <a href="https://www.youtube.com/watch?v=jScLjUlLTLI">Fluent 2014, Keynote with Yehuda Katz and Tom Dale</a>
+  </li>
+</ol>
 
 This is my git repo for my experiments with JavaScript and logging what I've learned and proved to myself. I like unit testing, and I'm interested in seeing how I can wire up JavaScript on the client with an event framework and unit test it on the command-line with Nodejs.
