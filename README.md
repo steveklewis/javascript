@@ -67,6 +67,12 @@ Learning Ember:
   <li>
     <a href="https://www.youtube.com/watch?v=PLN4LOK0UYg">Cross Side Scripting and Cross Site Request Forgery -- MajorBreakfast @ Ember Munich July 2014</a>
   </li>
+  <li>
+    <a href="https://docs.google.com/presentation/d/1afMLTCpRxhJpurQ97VBHCZkLbR1TEsRnd3yyxuSQ5YY">Google Doc presentation on React vs. Ember</a>
+  </li>
+  <li>
+    <a href="http://thechangelog.com/131/">the changelog #131: The Road to Ember 2.0 with Tom Dale and Yehuda Katz</a>
+  </li>
 </ol>
 
 This is my git repo for my experiments with JavaScript and logging what I've learned and proved to myself. I like unit testing, and I'm interested in seeing how I can wire up JavaScript on the client with an event framework and unit test it on the command-line with Nodejs.
