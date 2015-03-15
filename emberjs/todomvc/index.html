@@ -7,9 +7,11 @@
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/libs/handlebars.js"></script>
     <script src="js/libs/ember.js"></script>
-    <script src="js/libs/ember-data.js"></script>
+    <script src="js/libs/ember-template-compiler.js"></script>
+    <!--<script src="js/libs/ember-data.js"></script>-->
   </head>
   <body>
+   <script type="text/x-handlebars" data-template-name="todos">
     <section id="todoapp">
       <header id="header">
         <h1>todos</h1>
@@ -60,5 +62,8 @@
     <footer id="info">
       <p>Double-click to edit a todo</p>
     </footer>
+   </script>
+   <script src="js/application.js"></script>
+   <script src="js/router.js"></script>
   </body>
 </html>
