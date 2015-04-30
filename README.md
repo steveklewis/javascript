@@ -73,6 +73,8 @@ Learning Ember:
   <li>
     <a href="http://thechangelog.com/131/">the changelog #131: The Road to Ember 2.0 with Tom Dale and Yehuda Katz</a>
   </li>
+  <li>
+    <a href="http://discuss.emberjs.com/t/ember-data-endless-frustration/893">Ember Data - Endless frustration</a> -- This post explains why you can't just loop through a hasMany relationship without also setting up the ids on the parent model instance. Good to know!
 </ol>
 
 This is my git repo for my experiments with JavaScript and logging what I've learned and proved to myself. I like unit testing, and I'm interested in seeing how I can wire up JavaScript on the client with an event framework and unit test it on the command-line with Nodejs.
