@@ -1,0 +1,38 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<style>
+.beforescale {
+  margin:150px;
+  width: 200px;
+  height: 100px;
+  background-color: blue;
+  border: 1px solid black;
+  transition: .3s ease-in-out;
+}
+
+.afterscale {
+  transform: scale(2);
+}
+</style>
+<script>
+$(document).ready(function () {
+  $('#scaleit').click(function() {
+    if ($('#scaleme').hasClass('afterscale')) {
+      $('#scaleme').removeClass('afterscale');
+    } else {
+      $('#scaleme').addClass('afterscale');
+    }
+  });
+});
+</script>
+</head>
+<body>
+
+<div id="scaleme" class="beforescale">
+Scale me!
+</div>
+<a id="scaleit" href="#">Scale it!</a>
+
+</body>
+</html>
