@@ -1,35 +1,25 @@
 var RSVP = require('rsvp');
 
-function dieToss() {
-  return Math.floor(Math.random() * 6) + 1;
-}
 
-function tossASix() {
+var tossTable = {
+  1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six'
+};
+
+function toss() {
   return new RSVP.Promise(function(fulfill, reject) {
     var n = Math.floor(Math.random() * 6) + 1;
-    if (n === 6) {
-      fulfill(n);
-    } else {
-      reject(n);
-    }
+    fulfill(n);
   });
 }
 
+
 function logAndTossAgain(toss) {
-  console.log("Tossed a " + toss + ", need to try again.");
-  return tossASix();
+  var tossWord = tossTable[toss];
+  console.log("Tossed a " + tossWord.toUppercase()+ ".");
 }
 
-function logSuccess(toss) {
-  console.log("Yay, managed to toss a " + toss + ".");
-}
-
-function logFailure(toss) {
-  console.log("Tossed a " + toss + ". Too bad, couldn't roll a six");
-}
-
-tossASix()
-  .then(null, logAndTossAgain)
-  .then(null, logAndTossAgain)
-  .then(logSuccess, logFailure)
+toss()
+  .then(logAndTossAgain)
+  .then(logAndTossAgain)
+  .then(logAndTossAgain)
 
