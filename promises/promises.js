@@ -1,4 +1,21 @@
 var RSVP = require('rsvp');
+var lineNum = require('./lineNum.js');
+
+function dumpError(err) {
+  if (typeof err == 'object') {
+    if (err.message) {
+      console.log('\nMessage: ' + err.message);
+    }
+    if (err.stack) {
+      console.log('\nStacktrace:');
+      console.log('=======================');
+      console.log(err.stack);
+    }
+  } else {
+    console.log('dumpError :: argument is not an object');
+  }
+}
+
 
 
 var tossTable = {
@@ -15,11 +32,18 @@ function toss() {
 
 function logAndTossAgain(toss) {
   var tossWord = tossTable[toss];
-  console.log("Tossed a " + tossWord.toUppercase()+ ".");
+  console.log("Tossed a " + tossWord.toUpperCase()+ ".");
+}
+
+function logErrorMessage(error) {
+  dumpError(error);
+  
+  console.log('Oops: ' + error.message);
 }
 
 toss()
   .then(logAndTossAgain)
   .then(logAndTossAgain)
   .then(logAndTossAgain)
+  .then(null, logErrorMessage);
 
