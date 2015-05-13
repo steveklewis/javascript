@@ -22,28 +22,37 @@ var tossTable = {
   1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six'
 };
 
-function toss() {
-  return new RSVP.Promise(function(fulfill, reject) {
-    var n = Math.floor(Math.random() * 6) + 1;
-    fulfill(n);
+function toss() {  
+  var n = Math.floor(Math.random() * 6) + 1;
+  return new RSVP.resolve(n);
+}
+
+function threeDice() {
+  var tosses = [];
+  function add(x, y) {
+    return x + y;
+  }
+
+  for (var i = 0; i < 3; i++) {
+    tosses.push(toss()); 
+  }
+
+  return RSVP.all(tosses).then(function(results) {
+    return results.reduce(add);
   });
 }
 
-
-function logAndTossAgain(toss) {
-  var tossWord = tossTable[toss];
-  console.log("Tossed a " + tossWord.toUpperCase()+ ".");
+function logResults(result) {
+  console.log("Rolled " + result + " with three dice.");
 }
 
 function logErrorMessage(error) {
-  dumpError(error);
-  
+  dumpError(error);  
   console.log('Oops: ' + error.message);
 }
 
-toss()
-  .then(logAndTossAgain)
-  .then(logAndTossAgain)
-  .then(logAndTossAgain)
+threeDice()
+  .then(logResults)
   .then(null, logErrorMessage);
+
 
