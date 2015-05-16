@@ -7,7 +7,7 @@ var args = {
   headers: {"Content-Type": "application/json"}
 };
 
-client.post("http://localhost:1337/beach", args, function(data, response) {
+client.post("http://localhost:1337/beaches", args, function(data, response) {
   console.log(data);
   console.log(response);
 });
