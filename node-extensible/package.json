@@ -1,0 +1,19 @@
+{
+  "name": "node-ext-ldb",
+  "version": "0.0.1",
+  "description": "Trying out the doc samples from node-extensible",
+  "main": "index.js",
+  "dependencies": {
+    "bytewise": "^1.0.0",
+    "extensible": "^3.1.0",
+    "leveldown": "^1.2.2",
+    "msgpack-js": "^0.3.0",
+    "rsvp": "^3.0.18"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
