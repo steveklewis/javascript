@@ -1,4 +1,5 @@
 var restify = require('restify');
+var restifyValidation = require('node-restify-validation');
 var levelup = require('levelup');
 var beachData = require('./beach-data.js');
 
@@ -64,11 +65,25 @@ function getBeach(req, res, next) {
 
 var server = restify.createServer();
 server.use(restify.bodyParser());
+server.use(restify.queryParser());
+server.use(restifyValidation.validationPlugin({
+	// Shows errors as an array
+	errorsAsArray: false,
+	// Not exclude incoming variables not specified in validator rules
+	forbidUndefinedVariables: false,
+	errorHandler: restify.errors.InvalidArgumentError
+}));
 
 server.get('/hello/:name', getBeach);
 server.head('/hello/:name', respond);
 
-server.post('/beaches', postBeach);
+server.post({url: '/beaches',
+             validation: {
+               content: {
+                 score: {isRequired: true}
+               }
+             }
+            }, postBeach);
 server.get('/beaches', getAllBeaches);
 
 server.listen(8080, function() {
