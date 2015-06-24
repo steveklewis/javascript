@@ -1,4 +1,11 @@
-
+/**
+ * beach-data.js is a small module that performs the
+ * business logic to get the leveldb key and value
+ * derived from the beach instance.
+ *
+ * Putting this in a separate module allows me to test
+ * this without importing leveldb or restify.
+ */
 var beachesPrefix = 'beaches';
 
 function getKeyVal(beachObj) {
@@ -8,3 +15,4 @@ function getKeyVal(beachObj) {
 
 
 module.exports.getKeyVal = getKeyVal;
+module.exports.prefix = beachesPrefix;

@@ -8,8 +8,17 @@ var client = restify.createJsonClient({
 
 client.post('/beaches', {'name': 'what', 'score': 100}, function(err, req, res, obj) {
   assert.ifError(err);
-
-  var jsObj = JSON.parse(obj);
+  console.log(typeof(obj));
   console.log('%d -> %j', res.statusCode, res.headers);
-  console.log('%j', jsObj);
+  console.log('%j', obj);
+});
+
+
+client.get('/beaches', function(err, req, res, obj) {
+  //var beachesArray = JSON.parse(obj);
+  assert.ifError(err);
+
+  console.log(typeof(obj));
+  console.log('%d -> %j', res.statusCode, res.headers);
+  console.log('%j', obj);
 });

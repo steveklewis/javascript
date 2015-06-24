@@ -29,7 +29,7 @@ function postBeach(req, res, next) {
     }
 
     db.get(keyVal.key, function(err, value) {
-      res.send(value);
+      res.send(JSON.parse(value));
       next();
     });
   });
@@ -39,7 +39,9 @@ function getAllBeaches(req, res, next) {
   var beaches = [];
   var stream = db.createReadStream()
     .on('data', function(data) {
-      beaches.push(data.value);
+      if (data.key.startsWith(beachData.prefix)) {
+        beaches.push(JSON.parse(data.value));
+      }
     })
     .on('error', function(err) {
       console.log('Error', err);
