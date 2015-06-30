@@ -1,4 +1,5 @@
 var restify = require('restify');
+var restifySwagger = require('node-restify-swagger');
 var restifyValidation = require('node-restify-validation');
 var levelup = require('levelup');
 var beachData = require('./beach-data.js');
@@ -73,11 +74,20 @@ server.use(restifyValidation.validationPlugin({
 	forbidUndefinedVariables: false,
 	errorHandler: restify.errors.InvalidArgumentError
 }));
+restifySwagger.configure(server, {
+  description: "API for beaches",
+  title: 'API for beaches',
+  allowMethodInModelNames: true
+});
 
 server.get('/hello/:name', getBeach);
 server.head('/hello/:name', respond);
 
 server.post({url: '/beaches',
+             swagger: {
+               summary: 'Add beach',
+               docPath: 'beaches'
+             },
              validation: {
                content: {
                  score: {isRequired: true}
@@ -86,6 +96,8 @@ server.post({url: '/beaches',
             }, postBeach);
 server.get('/beaches', getAllBeaches);
 
+
+restifySwagger.loadRestifyRoutes();
 server.listen(8080, function() {
   console.log('%s listening at %s', server.name, server.url);
 });
