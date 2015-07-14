@@ -37,6 +37,8 @@
     "ember-modal-dialog": "0.7.0"
   },
   "dependencies": {
-    "broccoli-sass": "^0.6.5"
+    "broccoli-sass": "^0.6.5",
+    "ember-cli-ember-table": "^0.3.0",
+    "ember-cli-mirage": "^0.1.5"
   }
 }
