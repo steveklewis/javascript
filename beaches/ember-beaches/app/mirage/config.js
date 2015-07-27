@@ -33,6 +33,8 @@ export default function() {
     this.post('/contacts', 'user'); // specify the type of resource to be created
   */
 
+  this.post('/beaches');
+
   /*
     PUT shorthands
 
