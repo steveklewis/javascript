@@ -6,13 +6,13 @@ var client = restify.createJsonClient({
 	version: '*'
 });
 
-// client.post('/beaches', {'name': 'what','score': 100}, function(err, req, res, obj) {
-//   console.log("Post beach");
-//   assert.ifError(err);
-//   console.log(typeof(obj));
-//   console.log('%d -> %j', res.statusCode, res.headers);
-//   console.log('%j', obj);
-// });
+client.post('/beaches', {'name': 'what','score': 100}, function(err, req, res, obj) {
+  console.log("Post beach");
+  assert.ifError(err);
+  console.log(typeof(obj));
+  console.log('%d -> %j', res.statusCode, res.headers);
+  console.log('%j', obj);
+});
 
 
 client.get('/beaches', function(err, req, res, obj) {
@@ -22,6 +22,7 @@ client.get('/beaches', function(err, req, res, obj) {
   console.log('%d -> %j', res.statusCode, res.headers);
   console.log('%j', obj);
 });
+
 
 client.get('/beaches/' + 'what', function(err, req, res, obj) {
   console.log("Single beach");

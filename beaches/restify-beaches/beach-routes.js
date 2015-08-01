@@ -11,10 +11,9 @@ function putBeach(db, req, res, next) {
 
 }
 
-function postBeach(db, req, res, next) {
-  var keyVal = beachData.getKeyVal(req.body);
-  console.log("Putting key " + keyVal.key);
-  db.put(keyVal.key, keyVal.value, function(err) {
+function postBeach(deps, req, res, next) {
+  var keyVal = deps.keyFuncs.getKeyVal(req.body);
+  deps.db.put(keyVal.key, keyVal.value, function(err) {
     if (err) {
       res.send(new InternalServerError(err));
       next();
@@ -22,16 +21,16 @@ function postBeach(db, req, res, next) {
 
     // This could be removed, just return the given
     // value sent in.
-    db.get(keyVal.key, function(err, value) {
+    deps.db.get(keyVal.key, function(err, value) {
       res.send(201, JSON.parse(value));
       next();
     });
   });
 }
 
-function getAllBeaches(db, resourceFunc, req, res, next) {
+function getAllBeaches(deps, req, res, next) {
   var beaches = [];
-  var stream = db.createReadStream()
+  var stream = deps.db.createReadStream()
     .on('data', function(data) {
       if (data.key.startsWith(beachData.prefix)) {
         beaches.push(JSON.parse(data.value));
@@ -43,20 +42,20 @@ function getAllBeaches(db, resourceFunc, req, res, next) {
       next();
     })
     .on('close', function() {
-      res.send(resourceFunc(beaches));
+      res.send(deps.resourceFunc(beaches));
       stream.destroy();
       next();
     });
 }
 
-function getBeach(db, resourceFunc, req, res, next) {
-  var beachKey = beachData.getKey(req.params.name);
-  console.log("Trying to get " + beachKey);
-  db.get(beachKey, function(err, value) {
+
+function getBeach(deps, req, res, next) {
+  var beachKey = deps.keyFuncs.getKey(req.params.name);
+  deps.db.get(beachKey, function(err, value) {
     if (err !== null && err.notFound) {
       res.send(new restify.NotFoundError(err));
     } else {
-      res.send(resourceFunc(value));
+      res.send(deps.resourceFunc(value));
     }
     next();
   });
