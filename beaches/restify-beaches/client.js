@@ -6,27 +6,30 @@ var client = restify.createJsonClient({
 	version: '*'
 });
 
-client.post('/beaches', {'name': 'what','score': 100}, function(err, req, res, obj) {
-  assert.ifError(err);
-  console.log("Post beach");
-  console.log(typeof(obj));
-  console.log('%d -> %j', res.statusCode, res.headers);
-  console.log('%j', obj);
-});
+// client.post('/beaches', {'name': 'what','score': 100}, function(err, req, res, obj) {
+//   console.log("Post beach");
+//   assert.ifError(err);
+//   console.log(typeof(obj));
+//   console.log('%d -> %j', res.statusCode, res.headers);
+//   console.log('%j', obj);
+// });
 
 
 client.get('/beaches', function(err, req, res, obj) {
-  assert.ifError(err);
-
   console.log("All beaches");
+  assert.ifError(err);
   console.log(typeof(obj));
   console.log('%d -> %j', res.statusCode, res.headers);
   console.log('%j', obj);
 });
 
 client.get('/beaches/' + 'what', function(err, req, res, obj) {
-  assert.ifError(err);
   console.log("Single beach");
+  if (err != null && err.statusCode === 404) {
+    console.log("/beaches/what not found");
+    return;
+  }
+  assert.ifError(err);
   console.log(typeof(obj));
   console.log('%d -> %j', res.statusCode, res.headers);
   console.log('%j', obj);

@@ -5,6 +5,9 @@ var restifySwagger = require('node-restify-swagger');
 var restifyValidation = require('node-restify-validation');
 var levelup = require('levelup');
 var beachRoutes = require('./beach-routes.js');
+var beachResources = require('./beach-resources.js');
+
+
 
 console.log('Initializing leveldb');
 var db = levelup('./mydb');
@@ -32,7 +35,7 @@ restifySwagger.configure(server, {
 });
 
 
-server.get('/beaches/:name', _.curry(beachRoutes.getBeach)(db));
+server.get('/beaches/:name', _.curry(beachRoutes.getBeach)(db, beachResources.getBeachResource));
 
 server.post({url: '/beaches',
              swagger: {
@@ -53,7 +56,7 @@ server.post({url: '/beaches',
                }
              }
             }, _.curry(beachRoutes.postBeach)(db));
-server.get('/beaches', _.curry(beachRoutes.getAllBeaches)(db));
+server.get('/beaches', _.curry(beachRoutes.getAllBeaches)(db, beachResources.getBeachResources));
 
 
 restifySwagger.loadRestifyRoutes();
