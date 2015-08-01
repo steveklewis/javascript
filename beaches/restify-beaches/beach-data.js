@@ -13,6 +13,5 @@ function getKeyVal(beachObj) {
   return {key: key, value: JSON.stringify(beachObj)};
 }
 
-
 module.exports.getKeyVal = getKeyVal;
 module.exports.prefix = beachesPrefix;

@@ -1,4 +1,7 @@
-function putBeach(req, res, next) {
+var beachData = require('./beach-data.js');
+
+function putBeach(db, req, res, next) {
+  console.log("Putbeach")
   db.get('beach', function(err, value) {
     value = req.body.name
     //db.put
@@ -6,7 +9,8 @@ function putBeach(req, res, next) {
 
 }
 
-function postBeach(req, res, next) {
+function postBeach(db, req, res, next) {
+  console.log("Postbeach")
   var keyVal = beachData.getKeyVal(req.body);
   db.put(keyVal.key, keyVal.value, function(err) {
     if (err) {
@@ -21,7 +25,8 @@ function postBeach(req, res, next) {
   });
 }
 
-function getAllBeaches(req, res, next) {
+function getAllBeaches(db, req, res, next) {
+  console.log("getallbeach")
   var beaches = [];
   var stream = db.createReadStream()
     .on('data', function(data) {
