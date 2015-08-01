@@ -26,7 +26,6 @@ function postBeach(db, req, res, next) {
 }
 
 function getAllBeaches(db, req, res, next) {
-  console.log("getallbeach")
   var beaches = [];
   var stream = db.createReadStream()
     .on('data', function(data) {
@@ -43,14 +42,14 @@ function getAllBeaches(db, req, res, next) {
       res.send(beaches);
       stream.destroy();
       next();
-    })
+    });
 }
 
-function getBeach(req, res, next) {
-    db.get('beach', function(err, value) {
-      res.send('get beach ' + value);
-      next();
-    });
+function getBeach(db, req, res, next) {
+  db.get(req.params.name, function(err, value) {
+    res.send(value);
+    next();
+  });
 }
 
 module.exports.getBeach = getBeach;

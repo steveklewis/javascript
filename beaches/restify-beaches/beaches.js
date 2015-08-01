@@ -32,7 +32,7 @@ restifySwagger.configure(server, {
 });
 
 
-server.get('/hello/:name', _.curry(beachRoutes.getBeach)(db));
+server.get('/beaches/:name', _.curry(beachRoutes.getBeach)(db));
 
 server.post({url: '/beaches',
              swagger: {
