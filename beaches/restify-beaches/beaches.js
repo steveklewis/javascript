@@ -61,8 +61,8 @@ server.post({url: '/beaches',
             }, _.curry(beachRoutes.postBeach)(beachDependencies));
 
 var allBeachesDependencies = {'db': db,
-                                 'resourceFunc': beachResources.getBeachResources,
-                                 'keyFuncs': beachKeyFuncs}
+                              'resourceFunc': beachResources.getBeachResources,
+                              'keyFuncs': beachKeyFuncs}
 
 server.get('/beaches', _.curry(beachRoutes.getAllBeaches)(allBeachesDependencies));
 
