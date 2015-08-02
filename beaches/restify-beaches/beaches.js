@@ -37,9 +37,6 @@ var beachDependencies = {'db': db,
                          'resourceFunc': beachResources.getBeachResource,
                          'keyFuncs': beachKeyFuncs}
 
-var allBeachesDependencies = {'db': db,
-                                 'resourceFunc': beachResources.getBeachResources,
-                                 'keyFuncs': beachKeyFuncs}
 
 server.get('/beaches/:name', _.curry(beachRoutes.getBeach)(beachDependencies));
 
@@ -62,6 +59,11 @@ server.post({url: '/beaches',
                }
              }
             }, _.curry(beachRoutes.postBeach)(beachDependencies));
+
+var allBeachesDependencies = {'db': db,
+                                 'resourceFunc': beachResources.getBeachResources,
+                                 'keyFuncs': beachKeyFuncs}
+
 server.get('/beaches', _.curry(beachRoutes.getAllBeaches)(allBeachesDependencies));
 
 
