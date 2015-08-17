@@ -3,3 +3,10 @@
   font-weight: inherit;
   margin: inherit;
 }
+
+
+.dialogdemoBasicUsage #popupContainer {
+  position: relative; 
+}
+
+
