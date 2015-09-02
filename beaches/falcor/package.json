@@ -1,0 +1,17 @@
+{
+  "name": "falcor-beaches",
+  "version": "0.1.0",
+  "description": "Generic Falcor App Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "elasticsearch": "^8.0.1",
+    "express": "^4.13.3",
+    "falcor-express": "^0.1.2",
+    "falcor-router": "^0.2.9"
+  }
+}
