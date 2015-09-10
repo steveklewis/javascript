@@ -1,6 +1,6 @@
 var elasticsearch = require('elasticsearch');
 var jsonGraph = require('falcor-json-graph');
-var Q = require('q');
+var deferred = require('deferred');
 
 
 
@@ -10,7 +10,7 @@ var client = new elasticsearch.Client({
 });
 
 function get() {
-  var defer = Q.defer();
+  var defer = deferred();
   client.get({
     index: 'falcor',
     type: 'beach',

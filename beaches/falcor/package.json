@@ -12,6 +12,10 @@
     "elasticsearch": "^8.0.1",
     "express": "^4.13.3",
     "falcor-express": "^0.1.2",
+    "falcor-json-graph": "^1.1.5",
     "falcor-router": "^0.2.9"
+  },
+  "devDependencies": {
+    "deferred": "^0.7.3"
   }
 }
