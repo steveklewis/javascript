@@ -7,7 +7,16 @@
 <body>
     <h1 id="greeting">Hello</h1>
     <!-- load Dojo -->
-    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
-            data-dojo-config="async: true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
+            data-dojo-config="async: false"></script>
+    <script>
+      require([
+          'dojo/dom',
+          'dojo/dom-construct'
+      ], function (dom, domConstruct) {
+          var greetingNode = dom.byId('greeting');
+          domConstruct.place('<em> Dojo!</em>', greetingNode);
+      });
+    </script>
 </body>
 </html>
