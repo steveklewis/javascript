@@ -5,6 +5,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/maquette/2.1.6/maquette.min.js"></script>
   <script>
 var createStore = Redux.createStore;
+var h = maquette.h;
+var projector = maquette.createProjector();
+
 var beachesReducer = function(state, action) {
    if (state === undefined) {
       return {'beaches': [],
@@ -22,10 +25,6 @@ var beachesReducer = function(state, action) {
 
 }
 var store = createStore(beachesReducer);
-console.log(store.getState());
-
-var h = maquette.h;
-var projector = maquette.createProjector();
 
 
 store.subscribe(function() {
