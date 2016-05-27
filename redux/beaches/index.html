@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.4/redux.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/maquette/2.1.6/maquette.min.js"></script>
+  <script>
+var createStore = Redux.createStore;
+var counter = function(state, action) {
+   if (state === undefined) {
+      return {'beaches': [],
+              'title': 'Beaches'};
+   }
+   switch (action.type) {
+      case 'ADD_BEACH':
+         state.beaches.push(action.beach);
+         return state;
+      case 'REMOVE_BEACH':
+         return state - 1;
+      default:
+         return state;
+   }
+
+}
+var store = createStore(counter);
+console.log(store.getState());
+
+var h = maquette.h;
+var projector = maquette.createProjector();
+
+
+store.subscribe(function() {
+    projector.scheduleRender();
+});
+
+document.addEventListener('click', function() {
+   store.dispatch({
+      type: 'ADD_BEACH',
+      beach: {'name': 'beach name'}
+   });
+});
+
+
+function renderMaquette() {
+   return h('div.landscape', [
+      h('div.saucer', store.getState().title),
+      store.getState().beaches.map(function(beach, index) {
+         return h('div.saucer', {key: beach.name + index}, [beach.name + " " + index]);
+      })
+      
+   ]);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+   projector.append(document.body, renderMaquette);
+});
+
+
+
+
+
+  </script>
+</head>
+
+<body>
+</body>
+
+</html>
