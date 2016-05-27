@@ -5,7 +5,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/maquette/2.1.6/maquette.min.js"></script>
   <script>
 var createStore = Redux.createStore;
-var counter = function(state, action) {
+var beachesReducer = function(state, action) {
    if (state === undefined) {
       return {'beaches': [],
               'title': 'Beaches'};
@@ -21,7 +21,7 @@ var counter = function(state, action) {
    }
 
 }
-var store = createStore(counter);
+var store = createStore(beachesReducer);
 console.log(store.getState());
 
 var h = maquette.h;
