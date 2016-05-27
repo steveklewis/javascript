@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.4/redux.js"></script>
+  <script>
+var createStore = Redux.createStore;
+var counter = function(state, action) {
+   if (state === undefined) {
+      return 0;
+   }
+   switch (action.type) {
+      case 'INCREMENT':
+         return state + 1;
+      case 'DECREMENT':
+         return state - 1;
+      default:
+         return state;
+   }
+
+}
+var store = createStore(counter);
+console.log(store.getState());
+
+
+store.dispatch({type: 'INCREMENT'});
+console.log(store.getState());
+
+
+store.subscribe(function() {
+   document.body.innerText = store.getState();
+});
+
+document.addEventListener('click', function() {
+   store.dispatch({type: 'INCREMENT'});
+});
+  </script>
+</head>
+
+<body>
+</body>
+
+</html>
