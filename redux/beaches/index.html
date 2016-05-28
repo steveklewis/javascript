@@ -11,14 +11,16 @@ var projector = maquette.createProjector();
 var beachesReducer = function(state, action) {
    if (state === undefined) {
       return {'beaches': [],
-              'title': 'Beaches'};
+              'title': 'Click here to add a beach'};
    }
    switch (action.type) {
       case 'ADD_BEACH':
          state.beaches.push(action.beach);
          return state;
       case 'REMOVE_BEACH':
-         return state - 1;
+         // Very naive removal
+         delete state.beaches[action.index];
+         return state
       default:
          return state;
    }
@@ -31,21 +33,33 @@ store.subscribe(function() {
     projector.scheduleRender();
 });
 
-document.addEventListener('click', function() {
+function removeBeach() {
+   store.dispatch({
+      type: 'REMOVE_BEACH',
+      index: this.id 
+   });
+}
+
+function addBeach() {
    store.dispatch({
       type: 'ADD_BEACH',
       beach: {'name': 'beach name'}
    });
-});
-
+}
 
 function renderMaquette() {
-   return h('div.landscape', [
-      h('div.saucer', store.getState().title),
+   return h('div', [
+      // Title div
+      h('div', {onclick: addBeach}, store.getState().title),
+
+      // List of beaches
       store.getState().beaches.map(function(beach, index) {
-         return h('div.saucer', {key: beach.name + index}, [beach.name + " " + index]);
+         // Each row has the beach name and a remove link
+         return h('div', {
+            key: beach.name + index
+         }, [beach.name + " " + index, 
+             h('a', {href: '#', id: index, onclick: removeBeach}, 'Remove')]);
       })
-      
    ]);
 }
 
