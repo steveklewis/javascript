@@ -4,10 +4,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.0.4/redux.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/maquette/2.1.6/maquette.min.js"></script>
   <script>
+
+// Redux store
 var createStore = Redux.createStore;
+
+// Maquette hyperscript
 var h = maquette.h;
+// Maquette projector
 var projector = maquette.createProjector();
 
+
+// Redux reducing function
 var beachesReducer = function(state, action) {
    if (state === undefined) {
       return {'beaches': [],
@@ -26,13 +33,18 @@ var beachesReducer = function(state, action) {
    }
 
 }
+
+// On any dispatch to the store, Redux will execute the reducer
 var store = createStore(beachesReducer);
 
-
+// This is the link between our Redux store and Maquette.
+// Any change coming out of the reducer will trigger another
+// Maquette render.
 store.subscribe(function() {
     projector.scheduleRender();
 });
 
+// Dispatch a remove beach event
 function removeBeach() {
    store.dispatch({
       type: 'REMOVE_BEACH',
@@ -40,6 +52,7 @@ function removeBeach() {
    });
 }
 
+// Dispatch an add beach event
 function addBeach() {
    store.dispatch({
       type: 'ADD_BEACH',
@@ -47,6 +60,7 @@ function addBeach() {
    });
 }
 
+// This is our DOM definition using a hyperscript syntax
 function renderMaquette() {
    return h('div', [
       // Title div
@@ -63,18 +77,13 @@ function renderMaquette() {
    ]);
 }
 
+// Once the page loads, project our rendering function onto
+// the document body.
 document.addEventListener('DOMContentLoaded', function() {
    projector.append(document.body, renderMaquette);
 });
-
-
-
-
-
   </script>
 </head>
-
 <body>
 </body>
-
 </html>
