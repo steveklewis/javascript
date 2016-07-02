@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <script src = "./dojo/dojo.js" data-dojo-config="async:true"></script>
+
+    <script>
+require(["dstore/Memory"], function(Memory){
+
+	var employees = [
+ 		{name:"Jim", department:"accounting"},
+		{name:"Bill", department:"engineering"},
+		{name:"Mike", department:"sales"},
+		{name:"John", department:"sales"}
+	];
+	var employeeStore = new Memory({data:employees, idProperty: "name"});
+	employeeStore.filter({department:"sales"}).forEach(function(employee){
+		// this is called for each employee in the sales department
+		alert(employee.name);
+	});
+});
+    </script>
+
+  </body>
+
+</html>
