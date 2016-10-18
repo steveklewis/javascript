@@ -1,0 +1,26 @@
+<ul class="results">
+  {{#each rentals as |rental|}}
+  <li>
+    <article class="listing">
+      <a {{action 'toggleImageSize' rental.model.id}} class="image {{if rental.isWide "wide"}}">
+        <img src="{{rental.model.attributes.image}}" alt="">
+        <small>View Larger</small>
+      </a>
+      <h3>{{#link-to "rentals.show" rental}}{{rental.model.attributes.title}}{{/link-to}}</h3>
+      <div class="detail owner">
+        <span>Owner:</span> {{rental.model.attributes.owner}}
+      </div>
+      <div class="detail type">
+        <span>Type:</span> {{rental-property-type rental.model.attributes.type}} - {{rental.model.attributes.type}}
+      </div>
+      <div class="detail location">
+        <span>Location:</span> {{rental.model.attributes.city}}
+      </div>
+      <div class="detail bedrooms">
+        <span>Number of bedrooms:</span> {{rental.model.attributes.bedrooms}}
+      </div>
+      {{location-map location=rental.model.attributes.city}}
+    </article>
+  </li>
+  {{/each}}
+</ul>
