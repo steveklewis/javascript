@@ -2,6 +2,18 @@
 
 This little project is a copy of the basic Ember tutorial and acts as a base for further research into ember-redux.
 
+Modifications:
+
+* No use of Ember Data.
+* A component for rentals-container, which will have the interesting stuff in it.
+* A component for rentals-pres, which is strictly for presentation.
+
+Things to-do:
+
+* Figure out filtering in an abstract way, similar to list-filter which abstracts away filtering for any kind of listing.
+* Figure out proper use of stateToComputed. Right now I'm adding in presentation data elements right after getting them from JSON endpoint (isWide, etc).
+* It looks like the time-travelling stuff may not work correctly right now unless I have the templates inline in the component, so I may have to switch to that way of doing things for now.
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
